@@ -1,5 +1,7 @@
 # Groceries CRUD Application
 
+Live demo: https://groceries.ahmadfirdaus.dev
+
 ## Development setup 
 ### Setup backend application
 1. Move to backend directory `cd backend/`
