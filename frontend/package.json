@@ -1,0 +1,35 @@
+{
+  "name": "groceries-crud-frontend",
+  "author": "Ahmad Firdaus",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^8.4.1",
+    "@next/env": "^14.2.5",
+    "axios": "^1.7.4",
+    "classnames": "^2.5.1",
+    "dayjs": "^1.11.12",
+    "flowbite-react": "^0.10.1",
+    "next": "14.2.5",
+    "next-nprogress-bar": "^2.3.13",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-toastify": "^10.0.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.5",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  }
+}

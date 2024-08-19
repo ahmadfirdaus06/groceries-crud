@@ -1,0 +1,51 @@
+services:
+  mariadb:
+    image: mariadb:latest
+    restart: unless-stopped
+    environment:
+      - MARIADB_ROOT_PASSWORD=r00t_p@55w0rd
+    healthcheck:
+      test: [ "CMD", "healthcheck.sh", "--connect", "--innodb_initialized" ]
+      start_period: 10s
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    volumes:
+      - "mariadb:/var/lib/mysql:Z"
+      - "./backend/init.sql:/docker-entrypoint-initdb.d/init.sql"
+
+  backend:
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    image: node:20-alpine
+    working_dir: "/usr/src/app"
+    volumes:
+      - "./backend:/usr/src/app"
+    restart: unless-stopped
+    environment:
+      - name=value
+      - DB_HOST=mariadb
+      - DB_USERNAME=root
+      - DB_PASSWORD=r00t_p@55w0rd
+      - DB_NAME=grocery
+    command: >
+      sh -c "yarn install --frozen-lockfile && yarn prod"
+
+  frontend:
+    depends_on:
+      - backend
+    image: node:20-alpine
+    working_dir: "/usr/src/app"
+    volumes:
+      - "./frontend:/usr/src/app"
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3000:3000"
+    environment:
+      - BASE_API_URL=http://backend:3000
+    command: >
+      sh -c "yarn install --frozen-lockfile && yarn build && yarn start"
+
+volumes:
+  mariadb: {}
